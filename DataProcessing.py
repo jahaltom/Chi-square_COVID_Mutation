@@ -3,46 +3,46 @@ import pandas as pd
 from scipy.stats import chi2_contingency
 
 
-os.chdir(r"C:\Users\15154\Desktop\OFR10_Nidia\scripts")
 
 
-#Make all keywords lowercase in text files and remake files as tsv. 
-with open ("Dead.tsv") as f:
+
+#Make all keywords lowercase in tsv files and remake files as tsv. 
+with open ("keywords/Dead.txt") as f:
         dead_list=f.read().splitlines()
         temp=[x.lower() for x in dead_list]
         dead_list=temp
         dead_df=pd.DataFrame(dead_list).drop_duplicates()
-        dead_df.to_csv("Dead.tsv",sep='\t',mode='w',index=None,header=None)
+        dead_df.to_csv("Dead.txt",sep='\t',mode='w',index=None,header=None)
         
-with open ("Mild.tsv") as f:
+with open ("keywords/Mild.txt") as f:
         mild_list=f.read().splitlines()
         temp=[x.lower() for x in mild_list]
         mild_list=temp
         mild_df=pd.DataFrame(mild_list).drop_duplicates()
-        mild_df.to_csv("Mild.tsv",sep='\t',mode='w',index=None,header=None)
+        mild_df.to_csv("Mild.txt",sep='\t',mode='w',index=None,header=None)
           
         
-with open ("Moderate.tsv") as f:
+with open ("keywords/Moderate.txt") as f:
         moderate_list=f.read().splitlines()
         temp=[x.lower() for x in moderate_list]
         moderate_list=temp
         moderate_df=pd.DataFrame(moderate_list).drop_duplicates()
-        moderate_df.to_csv("Moderate.tsv",sep='\t',mode='w',index=None,header=None)
+        moderate_df.to_csv("Moderate.txt",sep='\t',mode='w',index=None,header=None)
     
-with open ("Very_Severe.tsv") as f:
+with open ("keywords/Very_Severe.txt") as f:
         very_severe_list=f.read().splitlines()
         temp=[x.lower() for x in very_severe_list]
         very_severe_list=temp
         very_severe_df=pd.DataFrame(very_severe_list).drop_duplicates()
-        very_severe_df.to_csv("Very_Severe.tsv",sep='\t',mode='w',index=None,header=None)
+        very_severe_df.to_csv("Very_Severe.txt",sep='\t',mode='w',index=None,header=None)
 
         
-with open ("VeryMild_Asymptomatic.tsv") as f:
+with open ("keywords/VeryMild_Asymptomatic.txt") as f:
         veryMild_asymptomatic_list=f.read().splitlines()
         temp=[x.lower() for x in veryMild_asymptomatic_list]
         veryMild_asymptomatic_list=temp
         veryMild_asymptomatic_df=pd.DataFrame(veryMild_asymptomatic_list).drop_duplicates()
-        veryMild_asymptomatic_df.to_csv("VeryMild_Asymptomatic.tsv",sep='\t',mode='w',index=None,header=None)
+        veryMild_asymptomatic_df.to_csv("VeryMild_Asymptomatic.txt",sep='\t',mode='w',index=None,header=None)
 
  
         
