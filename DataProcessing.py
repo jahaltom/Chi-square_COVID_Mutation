@@ -6,15 +6,15 @@ from scipy.stats import chi2_contingency
 os.chdir(r"C:\Users\15154\Desktop\OFR10_Nidia\scripts")
 
 
-#Make all keywords lowercase and remake files as tsv. 
-with open ("Dead.txt") as f:
+#Make all keywords lowercase in text files and remake files as tsv. 
+with open ("Dead.tsv") as f:
         dead_list=f.read().splitlines()
         temp=[x.lower() for x in dead_list]
         dead_list=temp
         dead_df=pd.DataFrame(dead_list).drop_duplicates()
         dead_df.to_csv("Dead.tsv",sep='\t',mode='w',index=None,header=None)
         
-with open ("Mild.txt") as f:
+with open ("Mild.tsv") as f:
         mild_list=f.read().splitlines()
         temp=[x.lower() for x in mild_list]
         mild_list=temp
@@ -22,14 +22,14 @@ with open ("Mild.txt") as f:
         mild_df.to_csv("Mild.tsv",sep='\t',mode='w',index=None,header=None)
           
         
-with open ("Moderate.txt") as f:
+with open ("Moderate.tsv") as f:
         moderate_list=f.read().splitlines()
         temp=[x.lower() for x in moderate_list]
         moderate_list=temp
         moderate_df=pd.DataFrame(moderate_list).drop_duplicates()
         moderate_df.to_csv("Moderate.tsv",sep='\t',mode='w',index=None,header=None)
     
-with open ("Very_Severe.txt") as f:
+with open ("Very_Severe.tsv") as f:
         very_severe_list=f.read().splitlines()
         temp=[x.lower() for x in very_severe_list]
         very_severe_list=temp
@@ -37,7 +37,7 @@ with open ("Very_Severe.txt") as f:
         very_severe_df.to_csv("Very_Severe.tsv",sep='\t',mode='w',index=None,header=None)
 
         
-with open ("VeryMild_Asymptomatic.txt") as f:
+with open ("VeryMild_Asymptomatic.tsv") as f:
         veryMild_asymptomatic_list=f.read().splitlines()
         temp=[x.lower() for x in veryMild_asymptomatic_list]
         veryMild_asymptomatic_list=temp
@@ -58,18 +58,4 @@ merge_list=pd.DataFrame({'Status': merge_list})
 #Merge 
 DeltaData=pd.merge(merge_list,Data,on=['Status'])
 DeltaData.to_csv("DeltaData.tsv",sep='\t',mode='w',index=None)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
