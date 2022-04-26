@@ -159,19 +159,19 @@ def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState,results):
 
 
 #Keywords that place a patient in a category
-with open ("Dead.tsv") as f:
+with open ("Dead.txt") as f:
         dead_list=f.read().splitlines()
-with open ("Mild.tsv") as f:
+with open ("Mild.txt") as f:
         mild_list=f.read().splitlines()
-with open ("Moderate.tsv") as f:
+with open ("Moderate.txt") as f:
         moderate_list=f.read().splitlines()
-with open ("Very_Severe.tsv") as f:
+with open ("Very_Severe.txt") as f:
         very_severe_list=f.read().splitlines()
-with open ("VeryMild_Asymptomatic.tsv") as f:
+with open ("VeryMild_Asymptomatic.txt") as f:
         veryMild_asymptomatic_list=f.read().splitlines()
 
 #Read in COVID data
-Data = pd.read_csv("AlphaData.tsv",sep='\t')
+Data = pd.read_csv("DeltaDataWithKeywords.tsv",sep='\t')
 #Create dict of dfs with each Strain as a key. The dfs will contain patients that go with the Strain.
 Strains = dict(tuple(Data.groupby('Strain')))
 results=[]
@@ -190,6 +190,6 @@ for Strain in Strains.keys():
        ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead",results)
 
 results = pd.concat(results)
-results.to_csv("Alpha.tsv",sep='\t',mode='w',index=None)
+results.to_csv("DeltaResults.tsv",sep='\t',mode='w',index=None)
 
  
