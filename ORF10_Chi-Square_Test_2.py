@@ -3,8 +3,6 @@ import pandas as pd
 from scipy.stats import chi2_contingency
 
 
-os.chdir(r"C:\Users\15154\Desktop\OFR10_Nidia\scripts")
-
 
 
 
@@ -159,15 +157,15 @@ def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState,results):
 
 
 #Keywords that place a patient in a category
-with open ("Dead.txt") as f:
+with open ("keywords/Dead.txt") as f:
         dead_list=f.read().splitlines()
-with open ("Mild.txt") as f:
+with open ("keywords/Mild.txt") as f:
         mild_list=f.read().splitlines()
-with open ("Moderate.txt") as f:
+with open ("keywords/Moderate.txt") as f:
         moderate_list=f.read().splitlines()
-with open ("Very_Severe.txt") as f:
+with open ("keywords/Very_Severe.txt") as f:
         very_severe_list=f.read().splitlines()
-with open ("VeryMild_Asymptomatic.txt") as f:
+with open ("keywords/VeryMild_Asymptomatic.txt") as f:
         veryMild_asymptomatic_list=f.read().splitlines()
 
 #Read in COVID data
