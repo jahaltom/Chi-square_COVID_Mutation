@@ -52,7 +52,6 @@ Data['Status'] = Data['Status'].str.lower()
 merge_list=dead_list+mild_list+moderate_list+very_severe_list+veryMild_asymptomatic_list
 merge_list=pd.DataFrame({'Status': merge_list})
 
-#Merge 
-DeltaData=pd.merge(merge_list,Data,on=['Status'])
-DeltaData.to_csv("DeltaDataWithKeywords.tsv",sep='\t',mode='w',index=None)
-
+#Merge  
+data_withkeywords=pd.merge(merge_list,Data,on=['Status'])
+data_withkeywords.to_csv("DeltaDataWithKeywords.tsv",sep='\t',mode='w',index=None)
