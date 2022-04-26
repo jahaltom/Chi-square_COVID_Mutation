@@ -27,3 +27,12 @@ Strain	Mutation	Has Mutation	Very-Mild_Asymptomatic	Mild	Moderate	Very_Severe	De
 AY.4 (10008)	G29628A (44)	Mut+	0	38	4	0	2	0.005473686
 AY.4 (10008)	G29628A (44)	Mut-	47	8994	859	17	47	0.005473686
 ```
+
+
+**Other Analysis**
+The above was for the delta variant dataset (DeltaData.txt). To use another variant data set (E.g. AlphaData.txt), simply swap the word Alpha with Delta.
+```
+sed -i 's/Delta/Alpha/g' DataProcessing.py
+sed -i 's/Delta/Alpha/g' ORF10_Chi-Square_Test_2.py
+```
+Then re-run DataProcessing.py and ORF10_Chi-Square_Test_2.py.
