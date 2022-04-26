@@ -12,14 +12,14 @@ with open ("keywords/Dead.txt") as f:
         temp=[x.lower() for x in dead_list]
         dead_list=temp
         dead_df=pd.DataFrame(dead_list).drop_duplicates()
-        dead_df.to_csv("Dead.txt",sep='\t',mode='w',index=None,header=None)
+        dead_df.to_csv("keywords/Dead.txt",sep='\t',mode='w',index=None,header=None)
         
 with open ("keywords/Mild.txt") as f:
         mild_list=f.read().splitlines()
         temp=[x.lower() for x in mild_list]
         mild_list=temp
         mild_df=pd.DataFrame(mild_list).drop_duplicates()
-        mild_df.to_csv("Mild.txt",sep='\t',mode='w',index=None,header=None)
+        mild_df.to_csv("keywords/Mild.txt",sep='\t',mode='w',index=None,header=None)
           
         
 with open ("keywords/Moderate.txt") as f:
@@ -27,14 +27,14 @@ with open ("keywords/Moderate.txt") as f:
         temp=[x.lower() for x in moderate_list]
         moderate_list=temp
         moderate_df=pd.DataFrame(moderate_list).drop_duplicates()
-        moderate_df.to_csv("Moderate.txt",sep='\t',mode='w',index=None,header=None)
+        moderate_df.to_csv("keywords/Moderate.txt",sep='\t',mode='w',index=None,header=None)
     
 with open ("keywords/Very_Severe.txt") as f:
         very_severe_list=f.read().splitlines()
         temp=[x.lower() for x in very_severe_list]
         very_severe_list=temp
         very_severe_df=pd.DataFrame(very_severe_list).drop_duplicates()
-        very_severe_df.to_csv("Very_Severe.txt",sep='\t',mode='w',index=None,header=None)
+        very_severe_df.to_csv("keywords/Very_Severe.txt",sep='\t',mode='w',index=None,header=None)
 
         
 with open ("keywords/VeryMild_Asymptomatic.txt") as f:
@@ -42,7 +42,7 @@ with open ("keywords/VeryMild_Asymptomatic.txt") as f:
         temp=[x.lower() for x in veryMild_asymptomatic_list]
         veryMild_asymptomatic_list=temp
         veryMild_asymptomatic_df=pd.DataFrame(veryMild_asymptomatic_list).drop_duplicates()
-        veryMild_asymptomatic_df.to_csv("VeryMild_Asymptomatic.txt",sep='\t',mode='w',index=None,header=None)
+        veryMild_asymptomatic_df.to_csv("keywords/VeryMild_Asymptomatic.txt",sep='\t',mode='w',index=None,header=None)
 
  
         
