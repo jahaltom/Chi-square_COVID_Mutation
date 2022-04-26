@@ -45,10 +45,9 @@ with open ("keywords/VeryMild_Asymptomatic.txt") as f:
         veryMild_asymptomatic_df.to_csv("keywords/VeryMild_Asymptomatic.txt",sep='\t',mode='w',index=None,header=None)
 
  
-        
+#Read in pateint dataset       
 #Some pateints will be excluded becuase they failed to have a status keyword. Merge pateint dataset with above keywords to only get pateints that have status keywords.
-#Read in pateint dataset
-Data = pd.read_csv("DeltaData.txt",sep='\t' )
+Data = pd.read_csv("DeltaData.tsv",sep='\t' )
 #Make keywords lowercase
 Data['Status'] = Data['Status'].str.lower()
 #Combine all keywords into df.
@@ -57,5 +56,5 @@ merge_list=pd.DataFrame({'Status': merge_list})
 
 #Merge 
 DeltaData=pd.merge(merge_list,Data,on=['Status'])
-DeltaData.to_csv("DeltaData.tsv",sep='\t',mode='w',index=None)
+DeltaData.to_csv("DeltaDataWithKeywords.tsv",sep='\t',mode='w',index=None)
 
