@@ -1,9 +1,8 @@
-import os
 import pandas as pd
 from scipy.stats import chi2_contingency
 
 
-
+results=[]
 
 
 #Given a dataframe of patients, returns total # patients and total # patients belonging to each condition. Returns list of ints.
@@ -49,7 +48,9 @@ def Condition(CondState):
 #CondState and OtherCondState is the condition of the patient(Mild, Very_Severe, Moderate, Very-Mild_Asymptomatic, Dead).
 
 #Performs Chi-Square Test for two specific groups
-def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState,results):
+def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState):
+        global results
+        
         mut_list=catagorize(df_mut)
         Strain_list=catagorize(df_Strain)
 
@@ -107,7 +108,8 @@ def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState,results):
 
 
 #Performs Chi-Square Test for 1 specific group vs all others.
-def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState,results):
+def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState):
+        global results
         mut_list=catagorize(df_mut)
         Strain_list=catagorize(df_Strain)
 
@@ -172,7 +174,7 @@ with open ("keywords/VeryMild_Asymptomatic.txt") as f:
 Data = pd.read_csv("DeltaDataWithKeywords.tsv",sep='\t')
 #Create dict of dfs with each Strain as a key. The dfs will contain patients that go with the Strain.
 Strains = dict(tuple(Data.groupby('Strain')))
-results=[]
+
 for Strain in Strains.keys():
    #Create dict of dfs with each mutation as a key. The dfs will contain patients that go with the mutation.
    muts=dict(tuple(Strains[Strain].groupby('substitutions')))
@@ -186,8 +188,6 @@ for Strain in Strains.keys():
        ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Mild",results)
        ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Dead",results)
        ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead",results)
-
+       
 results = pd.concat(results)
 results.to_csv("DeltaResults.tsv",sep='\t',mode='w',index=None)
-
- 
