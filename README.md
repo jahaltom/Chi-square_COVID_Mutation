@@ -23,9 +23,7 @@ ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
 
 Outputs results in tsv file
 ```
-Strain	Mutation	Has Mutation	Very-Mild_Asymptomatic	Mild	Moderate	Very_Severe	Dead	Mild vs Dead
-AY.4 (10008)	G29628A (44)	Mut+	0	38	4	0	2	0.005473686
-AY.4 (10008)	G29628A (44)	Mut-	47	8994	859	17	47	0.005473686
+
 ```
 
 
