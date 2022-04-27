@@ -13,12 +13,12 @@ Once DataProcessing.py is run, this script performs the Chi-Square Test in two m
 
 Performs Chi-Square Test for 1 specific group vs all others.
 ```
-ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead",results)
+ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead")
 ```
 
 #Performs Chi-Square Test for two specific groups
 ```
-ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Very-Mild_Asymptomatic",results)
+ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
 ```
 
 Outputs results in tsv file
