@@ -22,9 +22,9 @@ ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
 ```
 
 Outputs results in tsv file
-```
+![alt text](https://github.com/jahaltom/Chi-square_COVID_Mutation/blob/main/OutputExample.PNG?raw=true)
 
-```
+
 
 
 **Other Analysis**
