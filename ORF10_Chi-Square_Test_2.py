@@ -180,14 +180,14 @@ for Strain in Strains.keys():
    muts=dict(tuple(Strains[Strain].groupby('substitutions')))
    
    for mut in muts.keys():
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very-Mild_Asymptomatic","Dead",results)           
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Moderate",results)
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead",results)
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Moderate","Dead",results)     
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Very-Mild_Asymptomatic",results)
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Mild",results)
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Dead",results)
-       ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead",results)
+       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very-Mild_Asymptomatic","Dead")           
+       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Moderate")
+       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
+       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Moderate","Dead")     
+       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Very-Mild_Asymptomatic")
+       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Mild")
+       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Dead")
+       ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead")
        
 results = pd.concat(results)
 results.to_csv("DeltaResults.tsv",sep='\t',mode='w',index=None)
