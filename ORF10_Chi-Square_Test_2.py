@@ -177,7 +177,7 @@ Strains = dict(tuple(Data.groupby('Strain')))
 
 for Strain in Strains.keys():
    #Create dict of dfs with each mutation as a key. The dfs will contain patients that go with the mutation.
-   muts=dict(tuple(Strains[Strain].groupby('substitutions')))
+   muts=dict(tuple(Strains[Strain].groupby('Mutations')))
    
    for mut in muts.keys():
        ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very-Mild_Asymptomatic","Dead")           
