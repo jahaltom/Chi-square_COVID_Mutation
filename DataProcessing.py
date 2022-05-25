@@ -45,7 +45,7 @@ with open ("keywords/VeryMild_Asymptomatic.txt") as f:
  
 #Read in pateint dataset       
 #Some pateints will be excluded becuase they failed to have a status keyword. Merge pateint dataset with above keywords to only get pateints that have status keywords.
-Data = pd.read_csv("DeltaData.txt",sep='\t' )
+Data = pd.read_csv("DeltaData.txt",sep='\t',encoding = 'unicode_escape' )
 #Make keywords lowercase
 Data['Status'] = Data['Status'].str.lower()
 #Combine all keywords into df.
