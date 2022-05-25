@@ -171,7 +171,7 @@ with open ("keywords/VeryMild_Asymptomatic.txt") as f:
         veryMild_asymptomatic_list=f.read().splitlines()
 
 #Read in COVID data
-Data = pd.read_csv("DeltaDataWithKeywords.tsv",sep='\t')
+Data = pd.read_csv("DeltaDataWithKeywords.tsv",sep='\t',encoding = 'unicode_escape')
 #Create dict of dfs with each Strain as a key. The dfs will contain patients that go with the Strain.
 Strains = dict(tuple(Data.groupby('Strain')))
 
