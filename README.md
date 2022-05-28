@@ -11,12 +11,12 @@ Additionaly, this script takes in the patient dataset as a tab delimited txt fil
 **ORF10_Chi-Square_Test_2.py**
 Once DataProcessing.py is run, this script performs the Chi-Square Test in two modes.
 
-Performs Chi-Square Test for 1 specific group vs all others.
+Performs Chi-Square Test for 1 specific condition vs all others.
 ```
 ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead")
 ```
 
-#Performs Chi-Square Test for two specific groups. The less severe group must always go on the left like below. 
+#Performs Chi-Square Test for two specific conditions. The less severe condition must always go on the left like below. 
 ```
 ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
 ```
