@@ -94,7 +94,7 @@ def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState):
         elif mut_Cond < mut_OtherCond:
             corr="Negative"
         else:
-            corr"None"
+            corr="None"
             
         try:
             # Chi-square test of independence.
