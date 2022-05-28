@@ -87,30 +87,36 @@ def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState):
         df = pd.DataFrame({'isCond' : isCond ,'isMut' : isMut })
         contigency= pd.crosstab(df['isCond'], df['isMut'])
 
-
-        #does mutation increase severity? 
-        if mut_Cond > mut_OtherCond:
-            corr="positive"
-        elif mut_Cond < mut_OtherCond:
-            corr="Negative"
-        else:
-            corr="None"
             
         try:
             # Chi-square test of independence.
             c, p, dof, expected = chi2_contingency(contigency)
-            
+              
             #Write results
             #Get the number of patients without mutation for each condition. 
             nonMut_list=[x - y for x, y in zip(Strain_list, mut_list)]
-            #Get stats
-            mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]+[corr]         
-            nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]+[corr]
-            results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value",CondState+" vs "+OtherCondState + " Severity Correlation"]) 
-            results_temp=results_temp.drop(['Total'], axis=1)
-            results.append(results_temp)
-
-
+            
+            #does mutation increase severity? 
+            if p <= 0.05:
+                if mut_Cond > mut_OtherCond:
+                    corr="Negative"
+                elif mut_Cond < mut_OtherCond:
+                    corr="Positive"
+                else:
+                    corr="None"
+                #Get stats
+                mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]+[corr]         
+                nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]+[corr]
+                results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value",CondState+" vs "+OtherCondState + " Severity Correlation"]) 
+                results_temp=results_temp.drop(['Total'], axis=1)
+                results.append(results_temp)
+            else:
+                #Get stats
+                mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]       
+                nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]
+                results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value"]) 
+                results_temp=results_temp.drop(['Total'], axis=1)
+                results.append(results_temp)
         except: pass
 
 
