@@ -16,7 +16,7 @@ Performs Chi-Square Test for 1 specific group vs all others.
 ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead")
 ```
 
-#Performs Chi-Square Test for two specific groups. The less sever group must always go on the left like below. 
+#Performs Chi-Square Test for two specific groups. The less severe group must always go on the left like below. 
 ```
 ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
 ```
