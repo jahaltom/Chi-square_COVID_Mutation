@@ -106,7 +106,7 @@ def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState):
             #Get stats
             mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]+[corr]         
             nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]+[corr]
-            results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState,"Severity Correlation"]) 
+            results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value",CondState+" vs "+OtherCondState + " Severity Correlation"]) 
             results_temp=results_temp.drop(['Total'], axis=1)
             results.append(results_temp)
 
