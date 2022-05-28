@@ -1,5 +1,6 @@
 # Chi-square_COVID_Mutation
-Chi-square test on COVID-19 mutations and clinical severity. 
+Chi-square test on COVID-19 mutations and clinical severity.
+
 Conditions are: Very-Mild_Asymptomatic, Mild, Moderate, Very_Severe, and Dead.
 
 
