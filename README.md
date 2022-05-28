@@ -1,11 +1,10 @@
 # Chi-square_COVID_Mutation
-Chi-square test on COVID-19 mutations and clinical severity (Very-Mild_Asymptomatic,Mild,Moderate,Very_Severe,Dead).
+Chi-square test on COVID-19 mutations and clinical severity. Conditions are: Very-Mild_Asymptomatic, Mild, Moderate, Very_Severe, and Dead.
 
 
 
 **DataProcessing.py**
-Takes in keywords txt files and makes all characters lowercase and then updates the input txt files. This way one can add addidtional keywords to a group. 
-Additionaly, this script takes in the patient dataset as a tab delimited txt file (like from excel. AlphaData.txt,DeltaData.txt), and generates a tsv file that only contains patients with keywords.
+Takes in the keywords txt files and makes all characters lowercase and then updates the input txt files. This way one can add addidtional keywords to a condition without creating duplicates. Additionaly, this script takes in the patient dataset as a tab delimited txt file like from excel (AlphaData.txt, DeltaData.txt, OmicronData.txt), and generates a tsv file that only contains patients with keywords.
 
 
 **ORF10_Chi-Square_Test_2.py**
