@@ -24,7 +24,6 @@ def catagorize(df):
     veryMild_asymptomatic=0
     for i in veryMild_asymptomatic_list:
         veryMild_asymptomatic=veryMild_asymptomatic+len(df[df['Status'] == i])
-
     return (Total,veryMild_asymptomatic,mild,moderate,very_severe,dead)
 
 
@@ -47,67 +46,68 @@ def Condition(CondState):
 #Takes in a dataframe for the whole Strain(df_Strain), and a df for a particular mutation in that Strain (df_mut). Strain and mut are strings that contain Strain name and mutation(E.g. A29558T).
 #CondState and OtherCondState is the condition of the patient(Mild, Very_Severe, Moderate, Very-Mild_Asymptomatic, Dead).
 
-#Performs Chi-Square Test for two specific groups
+#Performs Chi-Square Test for two specific conditions. The less severe condition must always go on the left.
 def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState):
-        global results
-        
+        global results    
         mut_list=catagorize(df_mut)
-        Strain_list=catagorize(df_Strain)
-
-        #Get index number of condition(s)
+        Strain_list=catagorize(df_Strain)     
+        #Get index number of conditions
         CondNum=Condition(CondState) 
         OtherCondNum=Condition(OtherCondState)
-
-
-
-        mut_total=mut_list[0]
-        #Need at leadt 3 patients with mutation.
-   
+        #Total with strain and total with mutation
+        mut_total=mut_list[0]  
         Strain_total=Strain_list[0]
+        #Total with condition in strain and with mutation   
         mut_Cond=mut_list[CondNum]
-        clad_Cond=Strain_list[CondNum]
+        clad_Cond=Strain_list[CondNum]       
         #Other Condition
         mut_OtherCond=mut_list[OtherCondNum]
-        clad_OtherCond=Strain_list[OtherCondNum]
-
-
+        clad_OtherCond=Strain_list[OtherCondNum]     
         #construct contingency table
         isCond=["Cond"]*mut_Cond
         isMut=["Yes"]*mut_Cond
-
         isCond=isCond+["other_Cond"]*(mut_OtherCond)
         isMut=isMut+["Yes"]*(mut_OtherCond)
-
         isCond=isCond+["Cond"]*(clad_Cond-mut_Cond)
         isMut=isMut+["no"]*(clad_Cond-mut_Cond)
-
         isCond=isCond+["other_Cond"]*(clad_OtherCond-mut_OtherCond)
         isMut=isMut+["no"]*(clad_OtherCond-mut_OtherCond)
-
         df = pd.DataFrame({'isCond' : isCond ,'isMut' : isMut })
-        contigency= pd.crosstab(df['isCond'], df['isMut'])
+        contigency= pd.crosstab(df['isCond'], df['isMut'])      
+        #There must be at least 1 person with the mutation in ether condition. 
+        if mut_Cond !=0 or mut_OtherCond !=0: 
+            try:
+                # Chi-square test of independence.
+                c, p, dof, expected = chi2_contingency(contigency)             
+                #Write results
+                #Get the number of patients without mutation for each condition. 
+                nonMut_list=[x - y for x, y in zip(Strain_list, mut_list)]    
+                #does mutation increase severity? 
+                if p <= 0.05:
+                    if mut_Cond > mut_OtherCond:
+                        corr="Negative"
+                    elif mut_Cond < mut_OtherCond:
+                        corr="Positive"
+                    else:
+                        corr="None"
+                    #Get stats
+                    mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]+[corr]         
+                    nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]+[corr]
+                    results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value",CondState+" vs "+OtherCondState + " Severity Correlation"]) 
+                    results_temp=results_temp.drop(['Total'], axis=1)
+                    results.append(results_temp)
+                else:
+                    #Get stats
+                    mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]+[""]      
+                    nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]+[""]
+                    results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value",CondState+" vs "+OtherCondState + " Severity Correlation"]) 
+                    results_temp=results_temp.drop(['Total'], axis=1)
+                    results.append(results_temp)
+            except: pass
 
-        
-        try:
-            # Chi-square test of independence.
-            c, p, dof, expected = chi2_contingency(contigency)
-            
-            #Write results
-            #Get the number of patients without mutation for each condition. 
-            nonMut_list=[x - y for x, y in zip(Strain_list, mut_list)]
-            #Get stats
-            mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]         
-            nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]
-            results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState]) 
-            results_temp=results_temp.drop(['Total'], axis=1)
-            results.append(results_temp)
 
 
-        except: pass
-
-
-
-#Performs Chi-Square Test for 1 specific group vs all others.
+#Performs Chi-Square Test for 1 specific condition vs all others.
 def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState):
         global results
         mut_list=catagorize(df_mut)
@@ -118,7 +118,7 @@ def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState):
 
 
         mut_total=mut_list[0]
-        #Need at leadt 3 patients with mutation.
+     
 
         Strain_total=Strain_list[0]
         mut_Cond=mut_list[CondNum]
@@ -178,8 +178,8 @@ Strains = dict(tuple(Data.groupby('Strain')))
 for Strain in Strains.keys():
    #Create dict of dfs with each mutation as a key. The dfs will contain patients that go with the mutation.
    muts=dict(tuple(Strains[Strain].groupby('Mutations')))
-   
    for mut in muts.keys():
+       #The less sever condition must always go on the left for ChiSqr_Two.
        ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very-Mild_Asymptomatic","Dead")           
        ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Moderate")
        ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
@@ -189,5 +189,13 @@ for Strain in Strains.keys():
        ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Dead")
        ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead")
        
+#Concat list of dfs
 results = pd.concat(results)
+#Get column order
+col_order= results.columns.to_list()
+#Collapse data 
+results=results.groupby(['Strain','Mutation','Has Mutation'],as_index=False).first()
+#Set to original column order
+results=results[col_order]
+
 results.to_csv("DeltaResults.tsv",sep='\t',mode='w',index=None)
