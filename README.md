@@ -9,7 +9,7 @@ Conditions are: Very-Mild_Asymptomatic, Mild, Moderate, Very_Severe, and Dead.
 This script takes in the patient dataset as a tab delimited txt file like from excel (AlphaData.txt, DeltaData.txt, OmicronData.txt), and generates a tsv file that only contains patients with keywords.
 
 
-**ORF10_Chi-Square_Test_2.py**
+**ORF10_Chi-Square_Test.py**
 Once DataProcessing.py is run, this script performs the Chi-Square Test in two modes.
 
 Performs Chi-Square Test for 1 specific condition vs all others.
