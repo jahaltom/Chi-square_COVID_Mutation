@@ -59,19 +59,19 @@ def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState):
         Strain_total=Strain_list[0]
         #Total with condition in strain and with mutation   
         mut_Cond=mut_list[CondNum]
-        clad_Cond=Strain_list[CondNum]       
+        strain_Cond=Strain_list[CondNum]       
         #Other Condition
         mut_OtherCond=mut_list[OtherCondNum]
-        clad_OtherCond=Strain_list[OtherCondNum]     
+        strain_OtherCond=Strain_list[OtherCondNum]     
         #construct contingency table
         isCond=["Cond"]*mut_Cond
         isMut=["Yes"]*mut_Cond
         isCond=isCond+["other_Cond"]*(mut_OtherCond)
         isMut=isMut+["Yes"]*(mut_OtherCond)
-        isCond=isCond+["Cond"]*(clad_Cond-mut_Cond)
-        isMut=isMut+["no"]*(clad_Cond-mut_Cond)
-        isCond=isCond+["other_Cond"]*(clad_OtherCond-mut_OtherCond)
-        isMut=isMut+["no"]*(clad_OtherCond-mut_OtherCond)
+        isCond=isCond+["Cond"]*(strain_Cond-mut_Cond)
+        isMut=isMut+["no"]*(strain_Cond-mut_Cond)
+        isCond=isCond+["other_Cond"]*(strain_OtherCond-mut_OtherCond)
+        isMut=isMut+["no"]*(strain_OtherCond-mut_OtherCond)
         df = pd.DataFrame({'isCond' : isCond ,'isMut' : isMut })
         contigency= pd.crosstab(df['isCond'], df['isMut'])      
         #There must be at least 1 person with the mutation in ether condition. 
@@ -122,7 +122,7 @@ def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState):
 
         Strain_total=Strain_list[0]
         mut_Cond=mut_list[CondNum]
-        clad_Cond=Strain_list[CondNum]
+        strain_Cond=Strain_list[CondNum]
 
 
 
@@ -133,11 +133,11 @@ def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState):
         isCond=isCond+["not_Cond"]*(mut_total-mut_Cond)
         isMut=isMut+["Yes"]*(mut_total-mut_Cond)
 
-        isCond=isCond+["Cond"]*(clad_Cond-mut_Cond)
-        isMut=isMut+["no"]*(clad_Cond-mut_Cond)
+        isCond=isCond+["Cond"]*(strain_Cond-mut_Cond)
+        isMut=isMut+["no"]*(strain_Cond-mut_Cond)
 
-        isCond=isCond+["not_Cond"]*((Strain_total-mut_total)-(clad_Cond-mut_Cond))
-        isMut=isMut+["no"]*((Strain_total-mut_total)-(clad_Cond-mut_Cond))
+        isCond=isCond+["not_Cond"]*((Strain_total-mut_total)-(strain_Cond-mut_Cond))
+        isMut=isMut+["no"]*((Strain_total-mut_total)-(strain_Cond-mut_Cond))
 
         contigency = pd.DataFrame({'isCond' : isCond ,'isMut' : isMut })
         contigency= pd.crosstab(contigency['isCond'], contigency['isMut'])
@@ -171,7 +171,7 @@ with open ("keywords/VeryMild_Asymptomatic.txt") as f:
         veryMild_asymptomatic_list=f.read().splitlines()
 
 #Read in COVID data
-Data = pd.read_csv("DeltaDataWithKeywords.tsv",sep='\t',encoding = 'unicode_escape')
+Data = pd.read_csv("OmicronDataWithKeywords.tsv",sep='\t',encoding = 'unicode_escape')
 #Create dict of dfs with each Strain as a key. The dfs will contain patients that go with the Strain.
 Strains = dict(tuple(Data.groupby('Strain')))
 
@@ -198,4 +198,4 @@ results=results.groupby(['Strain','Mutation','Has Mutation'],as_index=False).fir
 #Set to original column order
 results=results[col_order]
 
-results.to_csv("DeltaResults.tsv",sep='\t',mode='w',index=None)
+results.to_csv("OmicronResults.tsv",sep='\t',mode='w',index=None)
