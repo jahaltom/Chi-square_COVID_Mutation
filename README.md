@@ -32,6 +32,6 @@ Outputs results in tsv file
 The above was for the Delta variant dataset (DeltaData.txt). To use another variant data set (E.g. AlphaData.txt), simply swap the word Delta with Alpha.
 ```
 sed -i 's/Delta/Alpha/g' DataProcessing.py
-sed -i 's/Delta/Alpha/g' ORF10_Chi-Square_Test_2.py
+sed -i 's/Delta/Alpha/g' ORF10_Chi-Square_Test.py
 ```
-Then re-run DataProcessing.py and ORF10_Chi-Square_Test_2.py.
+Then re-run DataProcessing.py and ORF10_Chi-Square_Test.py.
