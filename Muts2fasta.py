@@ -1,6 +1,8 @@
+import os
 import pandas as pd
 
 
+os.chdir(r"C:\Users\15154\Desktop\Chi-square_COVID_Mutation-main")
 
 
 
@@ -21,7 +23,7 @@ fasta.write(wtNSeq[1:len(wtNSeq)])
 fasta.write('\n')
 for sub in subs:
         if "," in sub: #Multiple substitution mutations in at least 1 viral seq. 
-            MutNSeq=wtNSeq #To add multiple mutations to
+            MutNSeq=wtNSeq[1:] #To add multiple mutations to
             #List mutations
             mult_mut=sub.split(',')
             for m in mult_mut: 
@@ -30,8 +32,8 @@ for sub in subs:
                 pos=int(m[1:len(m)-1])-29557 #29557 is ORF10 start position in sarsCov2 genome. 
                 #Check that wt allele in sub is what it should be according to wtNSeq. Write new nt seq with mutation to fasta.
                 if wtNSeq[pos] == wt:         
-                    MutNSeq=MutNSeq[1:pos] + mut + MutNSeq[pos+1:]
-                     
+                    MutNSeq=MutNSeq[:pos] + mut + MutNSeq[pos+1:]
+                    print(MutNSeq)
             fasta.write(">"+sub)
             fasta.write('\n')
             fasta.write(MutNSeq)
