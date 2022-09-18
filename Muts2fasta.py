@@ -1,7 +1,6 @@
 import os
 
 
-#os.chdir(r"C:\Users\15154\Desktop")
 
 
 
