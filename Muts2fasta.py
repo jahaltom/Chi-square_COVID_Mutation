@@ -1,7 +1,3 @@
-import os
-
-
-
 
 
 #Wildtype Sars seq
