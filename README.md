@@ -38,5 +38,5 @@ Then re-run DataProcessing.py and ORF10_Chi-Square_Test.py.
 
 **Predict SNP effect**
 
-**Muts2fasta.py:**Uses wild-type SarsCov2 ORF10 (NC_045512.2) nt seq and list of substitution mutations (A29567G) to generate a fasta file containing seqs with given mutations. 
+**Muts2fasta.py:** Uses wild-type SarsCov2 ORF10 (NC_045512.2) nt seq and list of substitution mutations (A29567G) to generate a fasta file containing seqs with given mutations. 
 
