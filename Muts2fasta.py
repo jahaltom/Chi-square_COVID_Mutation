@@ -6,10 +6,10 @@ import os
 
 
 #Wildtype Sars seq
-wtNSeq = open("ORF10_NC_045512.2_29557-29671.txt", "r")
+wtNSeq = open("data/ORF10_NC_045512.2_29557-29671.txt", "r")
 wtNSeq=wtNSeq.read().splitlines()[0]
 #List of substitution mutations
-subs = open("subs.txt", "r")
+subs = open("data/subs.txt", "r")
 subs=subs.read().splitlines()
 
 
