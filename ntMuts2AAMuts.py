@@ -83,7 +83,7 @@ for seq in align:
                             mutList.append(wtPSeq[AA]+str(AA+1)+mut_seq[AA])
                             x=1
                         else:
-                            AAMut.write(str(","+wtPSeq[AA]+str(AA+1)+mut_seq[AA]))
+                            AAMut.write(str("\t"+wtPSeq[AA]+str(AA+1)+mut_seq[AA]))
                             mutList.append(wtPSeq[AA]+str(AA+1)+mut_seq[AA])                          
                 AAMut.write('\n')
             else:
