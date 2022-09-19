@@ -1,8 +1,5 @@
-import os
 import pandas as pd
 
-
-os.chdir(r"C:\Users\15154\Desktop\Chi-square_COVID_Mutation-main")
 
 
 
