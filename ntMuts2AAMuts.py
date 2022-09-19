@@ -74,15 +74,27 @@ for seq in align:
     else:
         mut_seq=next(align, '').strip() 
         if len(mut_seq)==len(wtPSeq):
-            for AA in range(0, len(mut_seq)):
-                if mut_seq[AA] != wtPSeq[AA]:                   
-                    AAMut.write(str(ID+" "+wtPSeq[AA]+str(AA+1)+mut_seq[AA]))
-                    AAMut.write('\n')
-                    mutList.append(wtPSeq[AA]+str(AA+1)+mut_seq[AA])
+            if "," in ID: #if more than 1 mutation in ID
+                x=0
+                for AA in range(0, len(mut_seq)):
+                    if mut_seq[AA] != wtPSeq[AA]: 
+                        if x != 1:
+                            AAMut.write(str(ID+"\t"+wtPSeq[AA]+str(AA+1)+mut_seq[AA]).replace(">", ""))
+                            mutList.append(wtPSeq[AA]+str(AA+1)+mut_seq[AA])
+                            x=1
+                        else:
+                            AAMut.write(str(","+wtPSeq[AA]+str(AA+1)+mut_seq[AA]))
+                            mutList.append(wtPSeq[AA]+str(AA+1)+mut_seq[AA])                          
+                AAMut.write('\n')
+            else:
+                for AA in range(0, len(mut_seq)):
+                    if mut_seq[AA] != wtPSeq[AA]:                   
+                        AAMut.write(str(ID+"\t"+wtPSeq[AA]+str(AA+1)+mut_seq[AA]).replace(">", ""))
+                        AAMut.write('\n')
+                        mutList.append(wtPSeq[AA]+str(AA+1)+mut_seq[AA])
    
 
 # Generate file for PREDICTSNP
 df=pd.DataFrame(mutList).drop_duplicates()
 df=df[~df.stack().str.contains('\*').any(level=0)]
 df.to_csv("DeltaMut_PREDICTSNP.txt",sep='\t',index=False,mode='w',header=None)    
-
