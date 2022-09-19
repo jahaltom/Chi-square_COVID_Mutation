@@ -36,7 +36,7 @@ sed -i 's/Delta/Alpha/g' ORF10_Chi-Square_Test.py
 ```
 Then re-run DataProcessing.py and ORF10_Chi-Square_Test.py.
 
-**Predict SNP effect**
+# Predict SNP effect
 
 **ntMuts2AAMuts.py:** Uses wild-type SarsCov2 ORF10 (NC_045512.2) nt seq and list of substitution mutations from E.g. DeltaDataWithKeywords.tsv (A29567G) to generate fasta files(nt an AA) containing seqs with given mutations. Also outputs list of AA mutations.
 
