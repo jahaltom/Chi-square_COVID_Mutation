@@ -15,7 +15,7 @@ subs=pd.read_csv("DeltaDataWithKeywords.tsv",sep="\t")["substitutions"].dropna()
 
 
 #Make fasta file of ORF10 seqs with mutations. wt ORF10 on top.
-fasta=open("Seqs.Delta.fasta", "w")
+fasta=open("ntSeqs.Delta.fasta", "w")
 fasta.write(">ORF10_wt")
 fasta.write('\n')
 fasta.write(wtNSeq[1:len(wtNSeq)])
@@ -53,7 +53,7 @@ fasta.close()
 
 ##################  Write AA fasta 
 with open("AAseq.Delta.fasta", 'w') as aa_fa:
-    for dna_record in SeqIO.parse("Seqs.Delta.fasta", 'fasta'):
+    for dna_record in SeqIO.parse("ntSeqs.Delta.fasta", 'fasta'):
         aa=dna_record.seq.translate()
         aa_record = SeqRecord(aa, id=dna_record.id,description="")
         SeqIO.write(aa_record, aa_fa, 'fasta')
@@ -86,7 +86,3 @@ df=pd.DataFrame(mutList).drop_duplicates()
 df=df[~df.stack().str.contains('\*').any(level=0)]
 df.to_csv("DeltaMut_PREDICTSNP.txt",sep='\t',index=False,mode='w',header=None)    
 
-
-    
-    
-    
