@@ -38,8 +38,8 @@ Then re-run DataProcessing.py and ORF10_Chi-Square_Test.py.
 
 **Predict SNP effect**
 
-**Muts2fasta.py:** Uses wild-type SarsCov2 ORF10 (NC_045512.2) nt seq and list of substitution mutations from E.g. DeltaDataWithKeywords.tsv (A29567G) to generate a fasta file containing seqs with given mutations. 
+**ntMuts2AAMuts.py:** Uses wild-type SarsCov2 ORF10 (NC_045512.2) nt seq and list of substitution mutations from E.g. DeltaDataWithKeywords.tsv (A29567G) to generate fasta files(nt an AA) containing seqs with given mutations. Also outputs list of AA mutations.
 
-**MEGA**
-
-
+**PREDICTSNP**
+PREDICTSNP cannot have mutations in which there is a * (R24*), so the previous script generates a specific list for PREDICTSNP in which the * mutations are removed. 
+Only looked at as single mutations affecting pt structure. One at a time, not more than 1
