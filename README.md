@@ -37,5 +37,7 @@ The defualt is for the Delta variant dataset, to do other variants see runall.sh
 **ntMuts2AAMuts.py:** Uses wild-type SarsCov2 ORF10 (NC_045512.2) nt seq and list of substitution mutations from E.g. DeltaDataWithKeywords.tsv (A29567G) to generate fasta files(nt an AA) containing seqs with given mutations. Also outputs list of AA mutations.
 
 **PREDICTSNP**
-PREDICTSNP cannot have mutations in which there is a * (R24*), so the previous script generates a specific list for PREDICTSNP in which the * mutations are removed. 
+![alt text](https://github.com/jahaltom/Chi-square_COVID_Mutation/blob/main/PredictSNP.PNG?raw=true)
+
+PredictSNP (https://loschmidt.chemi.muni.cz/predictsnp1/) cannot have mutations in which there is a * (R24*), so the previous script generates a specific list for PREDICTSNP in which the * mutations are removed. 
 Only looked at as single mutations for each call. 
