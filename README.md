@@ -29,12 +29,8 @@ Outputs results in tsv file
 
 
 **Other Analysis**
-The above was for the Delta variant dataset (DeltaData.txt). To use another variant data set (E.g. AlphaData.txt), simply swap the word Delta with Alpha.
-```
-sed -i 's/Delta/Alpha/g' DataProcessing.py
-sed -i 's/Delta/Alpha/g' ORF10_Chi-Square_Test.py
-```
-Then re-run DataProcessing.py and ORF10_Chi-Square_Test.py.
+The defualt is for the Delta variant dataset, to do other variants see runall.sh
+
 
 # Predict SNP effect
 
@@ -42,4 +38,4 @@ Then re-run DataProcessing.py and ORF10_Chi-Square_Test.py.
 
 **PREDICTSNP**
 PREDICTSNP cannot have mutations in which there is a * (R24*), so the previous script generates a specific list for PREDICTSNP in which the * mutations are removed. 
-Only looked at as single mutations affecting pt structure. One at a time, not more than 1
+Only looked at as single mutations for each call. 
