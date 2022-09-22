@@ -28,8 +28,6 @@ Outputs results in tsv file
 
 
 
-**Other Analysis**
-The defualt is for the Delta variant dataset, to do other variants see runall.sh
 
 
 # Predict SNP effect
@@ -46,3 +44,7 @@ PredictSNP (https://loschmidt.chemi.muni.cz/predictsnp1/) cannot have mutations 
 Only looks at as single mutations for each call. 
 ![alt text](https://github.com/jahaltom/Chi-square_COVID_Mutation/blob/main/PredictSNP.PNG?raw=true)
 
+**DataCuration.py** Curates all of the above data into a tsv. 
+
+**Other Analysis**
+The defualt is for the Delta variant dataset, to do other variants see runall.sh
