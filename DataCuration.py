@@ -80,4 +80,4 @@ if len(col_list) == 1:
            'Very_Severe vs Very-Mild_Asymptomatic Severity Correlation']]
 
 
-df.to_csv("Beta_Final_Results.tsv",sep='\t',index=False,mode='w')
+df.to_csv("Delta_Final_Results.tsv",sep='\t',index=False,mode='w')
