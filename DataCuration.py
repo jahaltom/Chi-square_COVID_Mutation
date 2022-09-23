@@ -4,8 +4,18 @@ import pandas as pd
 
 predSNP=pd.read_csv("Deltapathogenicity.csv",sep='\t')
 Chi_results=pd.read_csv("DeltaResults.tsv",sep='\t')
+data=pd.read_csv("DeltaDataWithKeywords.tsv",sep='\t')[['Mutations', 'substitutions']]
+data = data.rename(columns={'Mutations': 'Mutation'})
+Chi_results=pd.merge(Chi_results,data,on=["Mutation"],how="left")
+
+
+
+
+
+
+
 AAMut=pd.read_csv("AAMut.Delta.txt",sep='\t',header=None)
-AAMut.columns=['Mutation','AA_Mutation']
+AAMut.columns=['substitutions','AA_Mutation']
 
 
 #Count number of columns made after split.
@@ -19,7 +29,7 @@ AAMut[col_list] = AAMut['AA_Mutation'].str.split(',',expand=True)
 
 
 #Merge on nt Mutation
-df=pd.merge(Chi_results,AAMut,on=["Mutation"],how="left")
+df=pd.merge(Chi_results,AAMut,on=["substitutions"],how="left")
 
 
 
