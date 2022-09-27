@@ -5,7 +5,7 @@ import pandas as pd
 predSNP=pd.read_csv("Deltapathogenicity.csv",sep='\t')
 Chi_results=pd.read_csv("DeltaResults.tsv",sep='\t')
 data=pd.read_csv("DeltaDataWithKeywords.tsv",sep='\t')[['Mutations', 'substitutions']]
-data = data.rename(columns={'Mutations': 'Mutation'})
+data = data.rename(columns={'Mutations': 'Mutation'}).drop_duplicates()
 Chi_results=pd.merge(Chi_results,data,on=["Mutation"],how="left")
 
 
