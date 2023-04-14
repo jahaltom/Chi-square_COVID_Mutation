@@ -1,5 +1,8 @@
 import pandas as pd
 from scipy.stats import chi2_contingency
+import os
+
+os.chdir(r"C:\Users\jahal\Documents")
 
 
 results=[]
@@ -73,37 +76,31 @@ def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState):
         isCond=isCond+["other_Cond"]*(strain_OtherCond-mut_OtherCond)
         isMut=isMut+["no"]*(strain_OtherCond-mut_OtherCond)
         df = pd.DataFrame({'isCond' : isCond ,'isMut' : isMut })
-        contigency= pd.crosstab(df['isCond'], df['isMut'])      
+        contigency= pd.crosstab(df['isCond'], df['isMut'])  
+        
+        try:
+            mutRatio=((contigency["Yes"][0]/(Strain_total+mut_total))/(contigency["Yes"][1]/(Strain_total+mut_total)))
+            wuhanRatio=((contigency["no"][0]/(Strain_total+mut_total))/(contigency["no"][1]/(Strain_total+mut_total)))
+        except:
+            mutRatio="NA"
+            wuhanRatio="NA"
         #There must be at least 1 person with the mutation in ether condition. 
         if mut_Cond !=0 or mut_OtherCond !=0: 
-            try:
+  
                 # Chi-square test of independence.
                 c, p, dof, expected = chi2_contingency(contigency)             
                 #Write results
                 #Get the number of patients without mutation for each condition. 
                 nonMut_list=[x - y for x, y in zip(Strain_list, mut_list)]    
                 #does mutation increase severity? 
-                if p <= 0.05:
-                    if mut_Cond > mut_OtherCond:
-                        corr="Negative"
-                    elif mut_Cond < mut_OtherCond:
-                        corr="Positive"
-                    else:
-                        corr="None"
-                    #Get stats
-                    mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]+[corr]         
-                    nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]+[corr]
-                    results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value",CondState+" vs "+OtherCondState + " Severity Correlation"]) 
-                    results_temp=results_temp.drop(['Total'], axis=1)
-                    results.append(results_temp)
-                else:
-                    #Get stats
-                    mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]+[""]      
-                    nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]+[""]
-                    results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value",CondState+" vs "+OtherCondState + " Severity Correlation"]) 
-                    results_temp=results_temp.drop(['Total'], axis=1)
-                    results.append(results_temp)
-            except: pass
+               
+                #Get stats
+                mut_list=[Strain,str(Strain_total-mut_total),mut,str(mut_total),str(mut_total),"Mut+"]+list(mut_list)+[p]+ [mutRatio ]    
+                nonMut_list=[Strain,str(Strain_total-mut_total),mut,str(mut_total),str(Strain_total-mut_total),"Mut-"]+list(nonMut_list)+[p]+[wuhanRatio]
+                results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Wuhan Strain Total','Mutation','Mutation Total','Table Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs "+OtherCondState + " P-value","("+CondState+"/Total) / ("+OtherCondState+"/Total)"]) 
+                results_temp=results_temp.drop(['Total'], axis=1)
+                results.append(results_temp)
+
 
 
 
@@ -142,6 +139,13 @@ def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState):
         contigency = pd.DataFrame({'isCond' : isCond ,'isMut' : isMut })
         contigency= pd.crosstab(contigency['isCond'], contigency['isMut'])
 
+        try:
+            mutRatio=((contigency["Yes"][0]/(Strain_total+mut_total))/(contigency["Yes"][1]/(Strain_total+mut_total)))
+            wuhanRatio=((contigency["no"][0]/(Strain_total+mut_total))/(contigency["no"][1]/(Strain_total+mut_total)))
+        except:
+            mutRatio="NA"
+            wuhanRatio="NA"
+        
         # Chi-square test of independence.
         c, p, dof, expected = chi2_contingency(contigency)
 
@@ -150,9 +154,9 @@ def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState):
         #Get the number of patients without mutation for each condition. 
         nonMut_list=[x - y for x, y in zip(Strain_list, mut_list)]
         #Get stats
-        mut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut+"]+list(mut_list)+[p]         
-        nonMut_list=[Strain,str(Strain_total),mut,str(mut_total),"Mut-"]+list(nonMut_list)+[p]
-        results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Strain Total','Mutation','Mutation Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs All"]) 
+        mut_list=[Strain,str(Strain_total-mut_total),mut,str(mut_total),str(mut_total),"Mut+"]+list(mut_list)+[p] + [mutRatio]       
+        nonMut_list=[Strain,str(Strain_total-mut_total),mut,str(mut_total),str(Strain_total-mut_total),"Mut-"]+list(nonMut_list)+[p] + [wuhanRatio]
+        results_temp=pd.DataFrame([mut_list,nonMut_list],columns=['Strain','Wuhan Strain Total','Mutation','Mutation Total','Table Total','Has Mutation','Total','Very-Mild_Asymptomatic', 'Mild', 'Moderate', 'Very_Severe', 'Dead',CondState+" vs All others P-Value","("+CondState+"/Total) / (All Others/Total)"])
         results_temp=results_temp.drop(['Total'], axis=1)
         results.append(results_temp)
 
@@ -171,7 +175,7 @@ with open ("keywords/VeryMild_Asymptomatic.txt") as f:
         veryMild_asymptomatic_list=f.read().splitlines()
 
 #Read in COVID data
-Data = pd.read_csv("DeltaDataWithKeywords.tsv",sep='\t',encoding = 'unicode_escape')
+Data = pd.read_csv("OmicronDataWithKeywords.tsv",sep='\t',encoding = 'unicode_escape')
 #Create dict of dfs with each Strain as a key. The dfs will contain patients that go with the Strain.
 Strains = dict(tuple(Data.groupby('Strain')))
 
@@ -180,14 +184,18 @@ for Strain in Strains.keys():
    muts=dict(tuple(Strains[Strain].groupby('Mutations')))
    for mut in muts.keys():
        #The less sever condition must always go on the left for ChiSqr_Two.
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very-Mild_Asymptomatic","Dead")           
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Moderate")
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Moderate","Dead")     
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Very-Mild_Asymptomatic")
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Mild")
-       ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Dead")
-       ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead")
+       
+       #Get wildtype only from strain an concat mut onto.
+       s=Strains[Strain][Strains[Strain]["Mutations"].isnull()]
+       df=pd.concat([s,muts[mut]]) 
+       # ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very-Mild_Asymptomatic","Dead")           
+       # ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Moderate")
+       # ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
+       # ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Moderate","Dead")     
+       # ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Very-Mild_Asymptomatic")
+       # ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Very_Severe","Mild")
+       ChiSqr_Two(Strain,mut,muts[mut],df,"Mild","Moderate")
+       ChiSqr_All(Strain,mut,muts[mut],df,"Mild")
        
 #Concat list of dfs
 results = pd.concat(results)
@@ -198,4 +206,4 @@ results=results.groupby(['Strain','Mutation','Has Mutation'],as_index=False).fir
 #Set to original column order
 results=results[col_order]
 
-results.to_csv("DeltaResults.tsv",sep='\t',mode='w',index=None)
+results.to_csv("OmicronResults.tsv",sep='\t',mode='w',index=None)
