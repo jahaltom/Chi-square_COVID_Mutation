@@ -75,8 +75,8 @@ def ChiSqr_Two(Strain,mut,df_mut,df_Strain,CondState,OtherCondState):
         contigency= pd.crosstab(df['isCond'], df['isMut'])  
         
         try:
-            mutRatio=((contigency["Yes"][0]/(Strain_total+mut_total))/(contigency["Yes"][1]/(Strain_total+mut_total)))
-            wuhanRatio=((contigency["no"][0]/(Strain_total+mut_total))/(contigency["no"][1]/(Strain_total+mut_total)))
+            mutRatio=((contigency["Yes"][0]/(Strain_total))/(contigency["Yes"][1]/(Strain_total)))
+            wuhanRatio=((contigency["no"][0]/(Strain_total))/(contigency["no"][1]/(Strain_total)))
         except:
             mutRatio="NA"
             wuhanRatio="NA"
@@ -136,8 +136,8 @@ def ChiSqr_All(Strain,mut,df_mut,df_Strain,CondState):
         contigency= pd.crosstab(contigency['isCond'], contigency['isMut'])
 
         try:
-            mutRatio=((contigency["Yes"][0]/(Strain_total+mut_total))/(contigency["Yes"][1]/(Strain_total+mut_total)))
-            wuhanRatio=((contigency["no"][0]/(Strain_total+mut_total))/(contigency["no"][1]/(Strain_total+mut_total)))
+            mutRatio=((contigency["Yes"][0]/(Strain_total))/(contigency["Yes"][1]/(Strain_total)))
+            wuhanRatio=((contigency["no"][0]/(Strain_total))/(contigency["no"][1]/(Strain_total)))
         except:
             mutRatio="NA"
             wuhanRatio="NA"
