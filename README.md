@@ -22,7 +22,14 @@ ChiSqr_All(Strain,mut,muts[mut],Strains[Strain],"Dead")
 ChiSqr_Two(Strain,mut,muts[mut],Strains[Strain],"Mild","Dead")
 ```
 
-Outputs results in tsv file
+Outputs results in tsv file that includes: 
+
+Strain/mutation attributes: Strain,# of wuhan seqs in strain, mutation(s), corresponding aa mutation in any, # of seqs in strain that contain the mutation(s) (**Use Mutation Total to filter**).
+
+Contingency table: Categorical breakdown of a strains wuhan seqs (Mut -) and seqs that contain the mutation(s) (Mut+). 
+
+Contrast P-Value and Ratio: Chi-square p-value for a comparison and the ratio e.g. (Very-Mild_Asymptomatic+Mild)/Total) / (All Others/Total). In this All Others in moderate + Very severe + dead, and Total is the total wuhan and mutated seqs in a strain. 
+
 ![alt text](https://github.com/jahaltom/Chi-square_COVID_Mutation/blob/main/ChiSquareOutput.jpg?raw=true)
 
 
@@ -47,4 +54,6 @@ Only looks at as single mutations for each call.
 **DataCuration.py** Curates all of the above data into a tsv. 
 
 **Other Analysis**
-The defualt is for the Delta variant dataset, to do other variants see runall.sh
+The defualt is for the Delta variant dataset, to do other variants see runall.sh. 
+
+It is possable to combine groups such as VeryMild_Asymptomatic/Mild and compair them to all other or anoter group. To do the VeryMild_Asymptomatic/Mild vs All: I moved keywords from VeryMild_Asymptomatic.txt into Mild.txt. Must leave VeryMild_Asymptomatic.txt empty. Then I made a Mild vs All (ChiSqr_All mode) in ORF10_Chi-Square_Test.py. 
